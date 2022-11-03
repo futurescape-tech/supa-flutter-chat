@@ -37,10 +37,13 @@ class _RegisterPageState extends State<RegisterPage> {
     final password = _passwordController.text;
     final username = _usernameController.text;
     try {
-      await supabase.auth.signUp(
+    AuthResponse response= await supabase.auth.signUp(
           email: email, password: password, data: {'username': username});
-      Navigator.of(context)
-          .pushAndRemoveUntil(ChatPage.route(), (route) => false);
+          print("response: $response");
+              Navigator.of(context)
+          .pushAndRemoveUntil(LoginPage.route(), (route) => false);
+      // Navigator.of(context)
+      //     .pushAndRemoveUntil(ChatPage.route(), (route) => false);
     } on AuthException catch (error) {
       context.showErrorSnackBar(message: error.message);
     } catch (error) {
